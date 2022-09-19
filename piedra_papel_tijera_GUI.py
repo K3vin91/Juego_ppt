@@ -14,7 +14,7 @@ vent.config(bg='gainsboro')
 imagen1= PhotoImage(file=r"C:\Users\kevin\Documents\Piedra, papel o tijera\ppt2.png")
 imagen2= PhotoImage(file=r"C:\Users\kevin\Documents\Piedra, papel o tijera\ppt1.png")
 portada= Label(vent,image=imagen1).grid(row=0, column=2, pady=10)
-manos= Label(vent, image=imagen2).grid(row=7, column=2, rowspan=2)
+manos= Label(vent, image=imagen2).grid(row=8, column=2, rowspan=2)
 
 
 ############################### Etiquetas de texto #############################
@@ -25,10 +25,10 @@ eti_2 =tk.Label(vent, text='Teclea tu nombre, por favor', bg='gainsboro')
 eti_2.grid(row=2, column=2)
 
 eti_3 = tk.Label(vent, text='Da clic la opcion que desees.', bg='gainsboro')
-eti_3.grid(row=4, column=2, pady=20)
+eti_3.grid(row=5, column=2, pady=10)
 
 eti_4 = tk.Label(vent, text='Computadora', font = ('Candara', 15), bg='gainsboro')
-eti_4.grid(row=7, column=3, pady= 10)
+eti_4.grid(row=8, column=3, pady= 10)
 
 
 
@@ -38,28 +38,32 @@ ent_nom.grid(row=3, column=2)
 
 ############################## display del jugador #############################
 nom_jugador = tk.Text(vent, font = ('Candara', 15), bg = 'white', fg = 'black', width=10, height=1, bd=3)
-nom_jugador.grid(row=7, column=1)
+nom_jugador.grid(row=8, column=1)
+
+def print_nombre(ent_nom):
+    nom_jugador.insert(tk.END, ent_nom)
+############################## boton del nombre ###############################
+bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = print_nombre)
+bott_nombre.grid(row=4, column=2, pady=10)
 
 
 
 ############################## display principal del juego #####################
 respuesta = tk.Text(vent, font = ('Helvetica', 10), bg = 'black', fg = 'yellow', width=70, height=3, bd=3)
-respuesta.grid(row=6, column=1, pady=20, columnspan=3)
+respuesta.grid(row=7, column=1, pady=20, columnspan=3)
 
 
 ########### Displays de contadores de partidas #########
-
 cont_jugador = tk.Text(vent, font = 'Helvetica 10', bg = 'black', fg = 'yellow', width=10, height=2)
-cont_jugador.grid(row=8, column=1)
+cont_jugador.grid(row=9, column=1)
 
 cont_compu = tk.Text(vent, font = 'Helvetica 10', bg = 'black', fg = 'yellow', width=10, height=2)
-cont_compu.grid(row=8, column=3)
-
+cont_compu.grid(row=9, column=3)
 
 
 ########## boton de reinicio ##########}
 bott_reinicio = tk.Button(text='Reiniciar el Juego', font= ('Candara', 10), bd=3, activebackground='darkkhaki')
-bott_reinicio.grid(row=9, column=2, pady=20)
+bott_reinicio.grid(row=10, column=2, pady=20)
 
 
 #######################################################################
@@ -117,13 +121,13 @@ def repeticion():
 
 ############################# Botones de opciones #############################
 bott_piedra = tk.Button(text='Piedra', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego)
-bott_piedra.grid(row=5, column=1, padx=30)
+bott_piedra.grid(row=6, column=1, padx=30)
 
 bott_papel = tk.Button(text='Papel', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego)
-bott_papel.grid(row=5, column=2)
+bott_papel.grid(row=6, column=2)
 
 bott_tijera= tk.Button(text= 'Tijera', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego)
-bott_tijera.grid(row=5, column=3, padx= 30)
+bott_tijera.grid(row=6, column=3, padx= 30)
 
 
 
