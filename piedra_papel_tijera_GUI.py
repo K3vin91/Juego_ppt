@@ -37,13 +37,15 @@ ent_nom = tk.Entry(vent, font='Helvetica 10', justify = 'center', bd=5)
 ent_nom.grid(row=3, column=2)
 
 ############################## display del jugador #############################
-nom_jugador = tk.Text(vent, font = ('Candara', 15), bg = 'white', fg = 'black', width=10, height=1, bd=3)
+nom_jugador = tk.Text(vent, font = ('Candara', 10), bg = 'white', fg = 'black', width=15, height=1, bd=3)
 nom_jugador.grid(row=8, column=1)
 
-def print_nombre(ent_nom):
-    nom_jugador.insert(tk.END, ent_nom)
+def captura():
+    nombre = ent_nom.get()
+    nom_jugador.insert(tk.END, nombre)
+
 ############################## boton del nombre ###############################
-bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = print_nombre)
+bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = captura)
 bott_nombre.grid(row=4, column=2, pady=10)
 
 
