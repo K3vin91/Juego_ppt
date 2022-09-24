@@ -1,4 +1,4 @@
-from distutils.cmd import Command
+
 import tkinter as tk
 from tkinter import CENTER, DISABLED, Label, PhotoImage
 import random
@@ -50,11 +50,12 @@ ent_nom.grid(row=3, column=2)
 nom_jugador = tk.Text(vent, font = ('Candara', 10), bg = 'white', fg = 'black', width=15, height=1, bd=3)
 nom_jugador.grid(row=8, column=1)
 
-def captura():  ### funcion con la que se captura el nombre tipeado, se inserta en el display del contador, se elimina del espacio de tipeado y se convoca a la funcion para cambiar el estado de los botones
+def captura():  ### funcion con la que se captura el nombre tipeado, se inserta en el display del contador, se elimina del espacio de tipeado, se convoca a la funcion para cambiar el estado de los botones y de desabilita el boton de "listo"
     nombre = ent_nom.get()
     nom_jugador.insert(tk.END, nombre)
     ent_nom.delete(0,'end')
     botones_estado()
+    bott_nombre['state'] = tk.DISABLED
 
 ############################## boton del nombre ###############################
 bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = captura)
