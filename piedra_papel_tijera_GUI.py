@@ -3,8 +3,6 @@ import tkinter as tk
 from tkinter import CENTER, DISABLED, Label, PhotoImage
 import random
 
-opciones = ['piedra', 'papel', 'tijera']
-
 vent = tk.Tk()
 vent.geometry('550x700')
 
@@ -50,15 +48,14 @@ ent_nom.grid(row=3, column=2)
 nom_jugador = tk.Text(vent, font = ('Candara', 10), bg = 'white', fg = 'black', width=15, height=1, bd=3)
 nom_jugador.grid(row=8, column=1)
 
-def captura():  ### funcion con la que se captura el nombre tipeado, se inserta en el display del contador, se elimina del espacio de tipeado, se convoca a la funcion para cambiar el estado de los botones y de desabilita el boton de "listo"
+def captura():  ### funcion con la que se captura el nombre tipeado, se inserta en el display del contador, se elimina del espacio de tipeado y de desabilita el boton de "listo"
     nombre = ent_nom.get()
     nom_jugador.insert(tk.END, nombre)
-    ent_nom.delete(0,'end')
-    botones_estado()
+    ent_nom.delete(0,'end')    
     bott_nombre['state'] = tk.DISABLED
 
 ############################## boton del nombre ###############################
-bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = captura)
+bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = lambda:[captura(), botones_estado()]) #### Con lambda se asegura que el boton active varias funciones a la vez 
 bott_nombre.grid(row=4, column=2, pady=10)
 
 
@@ -77,11 +74,13 @@ cont_compu.grid(row=9, column=3)
 
 
 ########## boton de reinicio ##########}
-bott_reinicio = tk.Button(text='Reiniciar el Juego', font= ('Candara', 10), bd=3, activebackground='darkkhaki')
+bott_reinicio = tk.Button(text='Reiniciar el contador', font= ('Candara', 10), bd=3, activebackground='darkkhaki')
 bott_reinicio.grid(row=10, column=2, pady=20)
 
 
 #######################################################################
+opciones= ['piedra', 'papel', 'tijera']
+jugador = ''
 #################### Funcion para eleccion de la computadora ##########
 def eleccion_compu(opciones):
     for opcion in opciones:
@@ -90,58 +89,54 @@ def eleccion_compu(opciones):
     
 #######################################################################
 ###################### Funcion para eleccion del jugador ##############
-def eleccion_jugador(opciones):
-    eleccion = (input('Elige tu opcion: Piedra, papel o tijera: ').lower())    
-    if eleccion not in opciones:
-        print('No has seleccionado un opcion valida')
-        repeticion()                       
-    else:        
-        return eleccion    
-    
+def piedra():
+    jugador = 'piedra'    
+    juego(opciones, jugador)    
+
+def papel():
+    jugador = 'papel'
+    juego(opciones, jugador) 
+
+def tijera():
+    jugador = 'tijera'
+    juego(opciones, jugador) 
+
 #######################################################################
 ##################### Funcion del Juego ###############################
 
-def juego(opciones):
-    jugador = eleccion_jugador(opciones)
+def juego(opciones, jugador):
+    respuesta.delete(0.0, tk.END)      
     computadora = eleccion_compu(opciones)
-
-    if jugador == computadora:
-        respuesta.insert(tk.END, resulado1)
+    
+    if jugador == computadora:        
         resulado1 ='Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nEs un empate'
-        
-    elif jugador == 'piedra' and computadora == 'tijera':
-        respuesta.insert(tk.END, resultado2)
-        resultado2 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado'
+        respuesta.insert(tk.END, resulado1)
 
-    elif jugador == 'papel' and computadora == 'piedra':
-        respuesta.insert(tk.END, resultado3)
+    elif jugador == 'piedra' and computadora == 'tijera':        
+        resultado2 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado'
+        respuesta.insert(tk.END, resultado2)
+
+    elif jugador == 'papel' and computadora == 'piedra':        
         resultado3 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado'
-        
-    elif jugador == 'tijera' and computadora =='papel':
-        respuesta.insert(tk.END, resultado4)
+        respuesta.insert(tk.END, resultado3)
+
+    elif jugador == 'tijera' and computadora =='papel':        
         resultado4 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado' 
-               
+        respuesta.insert(tk.END, resultado4)
+
     else:
         resultado5 ='Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas perdido'
         respuesta.insert(tk.END, resultado5)
-       
-
-def repeticion():
-    rep = (input('¿Deseas jugar otra vez? (s/n) ').lower())
-    if rep == 's':
-        juego(opciones)
-    else:
-        print('Juego cerrado, adios')
-
+           
 
 ############################# Botones de opciones #############################
-bott_piedra = tk.Button(text='Piedra', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego, state=tk.DISABLED)
+bott_piedra = tk.Button(text='Piedra', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= piedra, state=tk.DISABLED)
 bott_piedra.grid(row=6, column=1, padx=30)
 
-bott_papel = tk.Button(text='Papel', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego, state=tk.DISABLED)
+bott_papel = tk.Button(text='Papel', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= papel, state=tk.DISABLED)
 bott_papel.grid(row=6, column=2)
 
-bott_tijera= tk.Button(text= 'Tijera', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= juego, state=tk.DISABLED)
+bott_tijera= tk.Button(text= 'Tijera', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= tijera, state=tk.DISABLED)
 bott_tijera.grid(row=6, column=3, padx= 30)
 
 
