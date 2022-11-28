@@ -54,6 +54,28 @@ def captura():  ### funcion con la que se captura el nombre tipeado, se inserta 
     ent_nom.delete(0,'end')    
     bott_nombre['state'] = tk.DISABLED
 
+
+############################# Contador #########################################
+class Contador:                                              #Contador de los marcadores del jugador y la compu
+    def __init__(self, inicial=0):
+        self.numero = inicial        
+    def siguiente(self):                                   #Metodo para aumentar la cuenta del marcador
+        self.numero += 1        
+        return self.numero
+
+count_jugador = Contador()                               # Variable contador del jugador
+count_compu = Contador()                                 # Variable contador de la computadora
+
+def cuenta_jugador():                                    # Funcion que aumenta la cuenta del jugador dependiendo del resultado de la funcion Juego()
+    cont = count_jugador.siguiente()
+    cont_jugador.insert(tk.END, cont)
+
+def cuenta_compu():                                      # Funcion que aumenta la cuenta de la computadoradependiendo del resultado de la funcion Juego()
+    cont = count_compu.siguiente()
+    cont_compu.insert(tk.END, cont)
+
+
+
 ############################## boton del nombre ###############################
 bott_nombre = tk.Button(text='¡¡Listo!!', font= ('Candara', 10), bd=3, activebackground='darkkhaki', command = lambda:[captura(), botones_estado()]) #### Con lambda se asegura que el boton active varias funciones a la vez 
 bott_nombre.grid(row=4, column=2, pady=10)
@@ -73,7 +95,7 @@ cont_compu = tk.Text(vent, font = 'Helvetica 10', bg = 'black', fg = 'yellow', w
 cont_compu.grid(row=9, column=3)
 
 
-########## boton de reinicio ##########}
+########## boton de reinicio ##########
 bott_reinicio = tk.Button(text='Reiniciar el contador', font= ('Candara', 10), bd=3, activebackground='darkkhaki')
 bott_reinicio.grid(row=10, column=2, pady=20)
 
@@ -115,19 +137,23 @@ def juego(opciones, jugador):
     elif jugador == 'piedra' and computadora == 'tijera':        
         resultado2 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado'
         respuesta.insert(tk.END, resultado2)
-
+        cuenta_jugador()
+        
     elif jugador == 'papel' and computadora == 'piedra':        
         resultado3 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado'
         respuesta.insert(tk.END, resultado3)
-
+        cuenta_jugador()
+        
     elif jugador == 'tijera' and computadora =='papel':        
         resultado4 = 'Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas ganado' 
         respuesta.insert(tk.END, resultado4)
-
+        cuenta_jugador()
+        
     else:
         resultado5 ='Has escogido '+ jugador + ' y la computadora ha escogido ' + computadora + '\nHas perdido'
         respuesta.insert(tk.END, resultado5)
-           
+        cuenta_compu()
+              
 
 ############################# Botones de opciones #############################
 bott_piedra = tk.Button(text='Piedra', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= piedra, state=tk.DISABLED)
@@ -138,7 +164,6 @@ bott_papel.grid(row=6, column=2)
 
 bott_tijera= tk.Button(text= 'Tijera', font= ('Candara', 10), width=10, bd=3, activebackground='darkkhaki', command= tijera, state=tk.DISABLED)
 bott_tijera.grid(row=6, column=3, padx= 30)
-
 
 
 vent.mainloop()
